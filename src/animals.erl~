@@ -116,12 +116,12 @@ get_y_or_n(Prompt) ->
   io:fwrite("~s", [Prompt]),
   Response = io:get_line(''),
   case string:strip(uc(Response)) of
-    "S" ++ _Remainder ->
+    "Y" ++ _Remainder ->
       true;
     "N" ++ _Remainder ->
       false;
     _ ->
-      io:fwrite("Responder con 'si'/'s' o 'no'/'n'.~n"),
+      io:fwrite("Please answer 'yes' (or just 'y') or no (or just 'n').~n"),
       get_y_or_n(Prompt)
   end.
 
@@ -129,10 +129,10 @@ get_y_or_n(Prompt) ->
 %% @doc Gets the name of an animal from the player.
 
 get_animal_name() ->
-  io:fwrite("En que animal estabas pensando? "),
+  io:fwrite("What was the name of the animal you were thinking of? "),
   case chomp(io:get_line('')) of
     "" ->
-      io:fwrite("Lo siento, no entendi eso.~n"),
+      io:fwrite("Sorry, I didn't quite catch that.~n"),
       get_animal_name();
     AnimalName ->
       lc(AnimalName)
@@ -141,7 +141,7 @@ get_animal_name() ->
 get_question() ->
   case chomp(io:get_line('> ')) of
     "" ->
-      io:fwrite("Lo siento, no entendi eso.~n"),
+      io:fwrite("Sorry, I didn't quite catch that.~n"),
       get_question();
     Question ->
       strip_question_marks([to_upper(hd(Question)) | tl(Question)])
